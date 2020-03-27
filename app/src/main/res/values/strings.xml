@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Textile Tour</string>
+    <string name="load_peer">Load Peer</string>
 </resources>

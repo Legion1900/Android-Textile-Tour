@@ -15,15 +15,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     init {
         recoveryPhrase = initTextile()
         Log.d("test", "Phrase: $recoveryPhrase")
+
+        Log.d("test", "Is node online: ${Textile.instance().online()}")
     }
 
-//    val peer = Textile.instance().profile.get()
+    fun getPeer() = Textile.instance().profile.get()
 
     private fun initTextile(): String {
         val isDebugLogLvl = true
         val isWriteToDisk = false
         val phrase: String? = Textile.initialize(getApplication(), isDebugLogLvl, isWriteToDisk)
         Log.d("test", "Textile init phrase: $phrase")
+
+        Textile.instance().addEventListener(MyTextileEventListener())
+
         return phrase?.apply { savePhrase(this) } ?: loadPhrase()
     }
 
