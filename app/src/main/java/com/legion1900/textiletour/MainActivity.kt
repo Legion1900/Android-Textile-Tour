@@ -1,24 +1,21 @@
 package com.legion1900.textiletour
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel by lazy { ViewModelProviders.of(this)[MainActivityViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this)[MainActivityViewModel::class.java]
-    }
-
-    fun onClick(v: View) {
-        peer_profile.text = viewModel.getPeer().toString()
+        Log.d("test", "onCreate on thread: ${Thread.currentThread()}")
+        viewModel.getPeerProfile().observe(this, Observer { peer_profile.text = it.toString() })
     }
 }

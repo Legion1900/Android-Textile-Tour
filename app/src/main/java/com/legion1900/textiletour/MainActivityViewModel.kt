@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import io.textile.pb.Model
+import io.textile.textile.BaseTextileEventListener
 import io.textile.textile.Textile
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
@@ -15,20 +19,23 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     init {
         recoveryPhrase = initTextile()
         Log.d("test", "Phrase: $recoveryPhrase")
-
-        Log.d("test", "Is node online: ${Textile.instance().online()}")
     }
 
-    fun getPeer() = Textile.instance().profile.get()
+    private val peerProfile = MutableLiveData<Model.Peer>()
+
+    fun getPeerProfile(): LiveData<Model.Peer> = peerProfile
 
     private fun initTextile(): String {
         val isDebugLogLvl = true
         val isWriteToDisk = false
         val phrase: String? = Textile.initialize(getApplication(), isDebugLogLvl, isWriteToDisk)
-        Log.d("test", "Textile init phrase: $phrase")
-
-        Textile.instance().addEventListener(MyTextileEventListener())
-
+        Textile.instance().addEventListener(object : BaseTextileEventListener() {
+            override fun nodeOnline() {
+                Log.d("test", "nodeOnline on thread: ${Thread.currentThread()}")
+                // TODO: CAREFUL! CALLBACKS ARE CALLED ON THREAD DIFFERENT FROM MAIN!!
+                peerProfile.postValue(Textile.instance().profile.get())
+            }
+        })
         return phrase?.apply { savePhrase(this) } ?: loadPhrase()
     }
 
