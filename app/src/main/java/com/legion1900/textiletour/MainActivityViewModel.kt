@@ -21,7 +21,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         Log.d("test", "Phrase: $recoveryPhrase")
     }
 
+    /*
+    * id - embedded IPFS node`s peer ID (unique on the network);
+    * address - wallet account`s address (public key of account), can be shared with other peers;
+    * */
     private val peerProfile = MutableLiveData<Model.Peer>()
+
+    val pathToAvatar = MutableLiveData<String>()
 
     fun getPeerProfile(): LiveData<Model.Peer> = peerProfile
 
@@ -32,7 +38,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         Textile.instance().addEventListener(object : BaseTextileEventListener() {
             override fun nodeOnline() {
                 Log.d("test", "nodeOnline on thread: ${Thread.currentThread()}")
-                // TODO: CAREFUL! CALLBACKS ARE CALLED ON THREAD DIFFERENT FROM MAIN!!
+                // Display name: 'username' in network for communication simplicity.
+                Textile.instance().profile.setName("Tyler")
+                // CAREFUL! CALLBACKS ARE CALLED ON THREAD DIFFERENT FROM MAIN!!
                 peerProfile.postValue(Textile.instance().profile.get())
             }
         })

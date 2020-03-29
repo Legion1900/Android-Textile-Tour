@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Log.d("test", "onCreate on thread: ${Thread.currentThread()}")
-        viewModel.getPeerProfile().observe(this, Observer { peer_profile.text = it.toString() })
+        viewModel.getPeerProfile().observe(this, Observer {
+            peer_profile_view.text = it.toString()
+            display_name_view.text = getString(R.string.display_name, it.name)
+        })
     }
 }
