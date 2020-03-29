@@ -28,7 +28,22 @@
         <TextView
             android:id="@+id/seed_view"
             style="@style/ProfileInfoTextView"
-            tools:text="Seed"/>
+            tools:text="Seed" />
+
+        <TextView
+            android:id="@+id/search_result_view"
+            style="@style/ProfileInfoTextView"
+            tools:text="Search by name result" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:onClick="onSearchClick"
+            android:text="@string/search_btn" />
 
     </LinearLayout>
 

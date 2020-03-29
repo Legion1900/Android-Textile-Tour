@@ -7,8 +7,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.textile.pb.Model
+import io.textile.pb.QueryOuterClass
 import io.textile.textile.BaseTextileEventListener
 import io.textile.textile.Textile
+import java.lang.Exception
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val recoveryPhrase: String
@@ -34,6 +36,24 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun getPeerProfile(): LiveData<Model.Peer> = peerProfile
 
     fun getAccount() = Textile.instance().account
+
+    fun searchForContact(name: String) {
+        val options = QueryOuterClass.QueryOptions.newBuilder()
+            .setWait(10)
+            .setLimit(1)
+            .build()
+        val query = QueryOuterClass.ContactQuery.newBuilder().setName(name).build()
+        Textile.instance().addEventListener(object : BaseTextileEventListener() {
+            override fun contactQueryResult(queryId: String?, contact: Model.Contact?) {
+                Log.d("test", contact.toString())
+            }
+
+            override fun queryError(queryId: String?, e: Exception?) {
+                Log.e("test", "Something went wrong", e)
+            }
+        })
+        Textile.instance().contacts.search(query, options)
+    }
 
     private fun initTextile(): String {
         val isDebugLogLvl = true
