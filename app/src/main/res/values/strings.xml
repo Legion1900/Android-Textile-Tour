@@ -2,5 +2,5 @@
     <string name="app_name">Textile Tour</string>
     <string name="load_peer">Load Peer</string>
     <string name="display_name">Display name: %1$s</string>
-    <string name="choose_avatar">Choose avatar</string>
+    <string name="seed">Seed: %1$s</string>
 </resources>

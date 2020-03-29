@@ -18,9 +18,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.getPeerProfile().observe(this, Observer {
-            peer_profile_view.text = it.toString()
-            display_name_view.text = getString(R.string.display_name, it.name)
-        })
+        viewModel.apply {
+            getPeerProfile().observe(this@MainActivity, Observer {
+                peer_profile_view.text = it.toString()
+                display_name_view.text = getString(R.string.display_name, it.name)
+            })
+            isNodeOnline().observe(this@MainActivity, Observer {
+                val seed = getAccount().seed()
+                val contact = getAccount().contact()
+                account_view.text = contact.toString()
+                seed_view.text = getString(R.string.seed, seed)
+            })
+        }
     }
 }

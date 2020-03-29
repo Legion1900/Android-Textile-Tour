@@ -33,6 +33,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     * */
     fun getPeerProfile(): LiveData<Model.Peer> = peerProfile
 
+    fun getAccount() = Textile.instance().account
+
     private fun initTextile(): String {
         val isDebugLogLvl = true
         val isWriteToDisk = false
