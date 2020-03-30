@@ -5,7 +5,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import io.textile.pb.QueryOuterClass
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onSearchClick(v: View) {
-        viewModel.searchForContact("Joe")
+        viewModel.searchContactByName("Joe")
+//        viewModel.searchContactByAddress("P8Pij8QBQUKQM6onCEETgXgU3XpLSKXwsGZt2Pqq1cNmy7rM")
     }
 }

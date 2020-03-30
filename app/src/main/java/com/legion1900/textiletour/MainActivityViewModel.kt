@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.textile.pb.Model
 import io.textile.pb.QueryOuterClass
+import io.textile.textile.Account
 import io.textile.textile.BaseTextileEventListener
 import io.textile.textile.Textile
 import java.util.*
@@ -42,9 +43,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     * */
     fun getPeerProfile(): LiveData<Model.Peer> = peerProfile
 
-    fun getAccount() = Textile.instance().account
+    fun getAccount(): Account = Textile.instance().account
 
-    fun searchForContact(name: String) {
+    fun searchContactByName(name: String) {
         val options = QueryOuterClass.QueryOptions.newBuilder()
             .setWait(10)
             .setLimit(1)
@@ -52,6 +53,12 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         val query = QueryOuterClass.ContactQuery.newBuilder().setName(name).build()
         val handler = Textile.instance().contacts.search(query, options)
         Log.d("test", "search by name id: ${handler.id}")
+    }
+
+    fun searchContactByAddress(address: String) {
+        val options = QueryOuterClass.QueryOptions.newBuilder().setWait(10).setLimit(1).build()
+        val query = QueryOuterClass.ContactQuery.newBuilder().setAddress(address).build()
+        Textile.instance().contacts.search(query, options)
     }
 
     private fun initTextile(): String {
