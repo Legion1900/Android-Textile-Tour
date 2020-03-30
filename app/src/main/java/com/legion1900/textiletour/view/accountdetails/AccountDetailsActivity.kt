@@ -17,6 +17,10 @@ class AccountDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_details)
         observeViewModel()
+    }
+
+    override fun onStart() {
+        super.onStart()
         safeDataUpdate()
     }
 

@@ -7,4 +7,5 @@
     <string name="search_by_name">Name</string>
     <string name="search_by_address">Address</string>
     <string name="search">Search</string>
+    <string name="add_thread_btn">Add thread</string>
 </resources>
