@@ -21,6 +21,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -31,6 +35,8 @@ android {
 }
 
 dependencies {
+    def delegate_adapter_ver = '4.3.0'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -40,6 +46,10 @@ dependencies {
     // latest acceptable version: 1.1.5
     // version from github: 1.1.0
     implementation 'io.textile:textile:1.1.5'
+
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$delegate_adapter_ver"
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$delegate_adapter_ver"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

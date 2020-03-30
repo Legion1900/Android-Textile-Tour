@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.accountdetails.AccountDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/account_info_view"
+            style="@style/ProfileInfoTextView"
+            tools:text="Account info" />
+
+        <TextView
+            android:id="@+id/profile_info_view"
+            style="@style/ProfileInfoTextView"
+            tools:text="Profile info" />
+
+    </LinearLayout>
+
+</ScrollView>
