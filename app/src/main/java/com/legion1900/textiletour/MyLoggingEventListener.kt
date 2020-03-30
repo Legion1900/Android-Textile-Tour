@@ -5,9 +5,9 @@ import io.textile.pb.Model
 import io.textile.textile.FeedItemData
 import io.textile.textile.TextileEventListener
 
-class MyTextileEventListener : TextileEventListener {
+class MyLoggingEventListener : TextileEventListener {
     override fun threadRemoved(threadId: String?) {
-        log("threadRemoved")
+        log("threadRemoved id: $threadId")
     }
 
     override fun accountPeerAdded(peerId: String?) {
@@ -15,31 +15,31 @@ class MyTextileEventListener : TextileEventListener {
     }
 
     override fun nodeStarted() {
-        log("nodeStarted()")
+        log("nodeStarted")
     }
 
     override fun clientThreadQueryResult(queryId: String?, thread: Model.Thread?) {
-        log("clientThreadQueryResult")
+        log("clientThreadQueryResult: $queryId, thread: $thread")
     }
 
     override fun willStopNodeInBackgroundAfterDelay(seconds: Int) {
-        log("willStopNodeInBackgroundAfterDelay")
+        log("willStopNodeInBackgroundAfterDelay seconds: $seconds")
     }
 
     override fun syncFailed(status: Model.CafeSyncGroupStatus?) {
-        log("syncFailed")
+        log("syncFailed: $status")
     }
 
     override fun queryDone(queryId: String?) {
-        log("queryDone")
+        log("queryDone id: $queryId")
     }
 
     override fun threadAdded(threadId: String?) {
-        log("threadAdded")
+        log("threadAdded id: $threadId")
     }
 
     override fun syncUpdate(status: Model.CafeSyncGroupStatus?) {
-        log("syncUpdate")
+        log("syncUpdate status: $status")
     }
 
     override fun nodeFailedToStop(e: Exception?) {
@@ -47,7 +47,7 @@ class MyTextileEventListener : TextileEventListener {
     }
 
     override fun queryError(queryId: String?, e: Exception?) {
-        log("queryError")
+        log("queryError id: $queryId", e)
     }
 
     override fun nodeOnline() {
@@ -55,7 +55,7 @@ class MyTextileEventListener : TextileEventListener {
     }
 
     override fun notificationReceived(notification: Model.Notification?) {
-        log("notificationReceived")
+        log("notificationReceived notification: $notification")
     }
 
     override fun accountPeerRemoved(peerId: String?) {
@@ -63,7 +63,7 @@ class MyTextileEventListener : TextileEventListener {
     }
 
     override fun contactQueryResult(queryId: String?, contact: Model.Contact?) {
-        log("contactQueryResult")
+        log(contact.toString())
     }
 
     override fun nodeFailedToStart(e: Exception?) {
@@ -75,7 +75,7 @@ class MyTextileEventListener : TextileEventListener {
     }
 
     override fun syncComplete(status: Model.CafeSyncGroupStatus?) {
-        log("syncComplete")
+        log("syncComplete status: $status")
     }
 
     override fun nodeStopped() {
@@ -87,8 +87,9 @@ class MyTextileEventListener : TextileEventListener {
     }
 
     private fun log(msg: String, e: Exception? = null) {
-        e?.let { Log.d(TAG, msg, e) }
-        Log.d(TAG, msg)
+        val newMsg = "listener name:${toString()} $msg"
+        e?.let { Log.e(TAG, newMsg, e) }
+        Log.d(TAG, newMsg)
     }
 
     companion object {

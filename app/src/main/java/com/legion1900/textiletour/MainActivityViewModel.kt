@@ -10,7 +10,7 @@ import io.textile.pb.Model
 import io.textile.pb.QueryOuterClass
 import io.textile.textile.BaseTextileEventListener
 import io.textile.textile.Textile
-import java.lang.Exception
+import java.util.*
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
     private val recoveryPhrase: String
@@ -43,16 +43,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             .setLimit(1)
             .build()
         val query = QueryOuterClass.ContactQuery.newBuilder().setName(name).build()
-        Textile.instance().addEventListener(object : BaseTextileEventListener() {
-            override fun contactQueryResult(queryId: String?, contact: Model.Contact?) {
-                Log.d("test", contact.toString())
-            }
-
-            override fun queryError(queryId: String?, e: Exception?) {
-                Log.e("test", "Something went wrong", e)
-            }
-        })
-        Textile.instance().contacts.search(query, options)
+        Textile.instance().addEventListener(MyLoggingEventListener())
+        val handler = Textile.instance().contacts.search(query, options)
+        Log.d("test", "search by name id: ${handler.id}")
     }
 
     private fun initTextile(): String {
@@ -63,7 +56,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             override fun nodeOnline() {
                 Log.d("test", "nodeOnline on thread: ${Thread.currentThread()}")
                 // Display name: 'username' in network for communication simplicity.
-                Textile.instance().profile.setName("Tyler")
+                Textile.instance().profile.setName("Tyler ${Calendar.getInstance().time}")
                 // CAREFUL! CALLBACKS ARE CALLED ON THREAD DIFFERENT FROM MAIN!!
                 isNodeOnline.postValue(true)
                 peerProfile.postValue(Textile.instance().profile.get())
