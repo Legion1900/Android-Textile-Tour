@@ -36,6 +36,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onSearchClick(v: View) {
-        viewModel.searchForContact("Tyler")
+        viewModel.searchForContact("Joe")
     }
 }
