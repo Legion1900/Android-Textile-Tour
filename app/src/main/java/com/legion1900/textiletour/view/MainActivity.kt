@@ -1,10 +1,11 @@
-package com.legion1900.textiletour
+package com.legion1900.textiletour.view
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.legion1900.textiletour.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,23 +20,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.apply {
-            getPeerProfile().observe(this@MainActivity, Observer {
+        viewModel.isNodeOnline().observe(this@MainActivity, Observer {
+            if (it) {
                 peer_profile_view.text = it.toString()
-                display_name_view.text = getString(R.string.display_name, it.name)
-            })
-            isNodeOnline().observe(this@MainActivity, Observer {
-                val seed = getAccount().seed()
-                val contact = getAccount().contact()
+                val seed = viewModel.getAccount().seed()
+                val contact = viewModel.getAccount().contact()
                 account_view.text = contact.toString()
                 seed_view.text = getString(R.string.seed, seed)
                 search_btn.isEnabled = true
-            })
-        }
+            }
+        })
     }
 
     fun onSearchClick(v: View) {
         viewModel.searchContactByName("Joe")
-//        viewModel.searchContactByAddress("P8Pij8QBQUKQM6onCEETgXgU3XpLSKXwsGZt2Pqq1cNmy7rM")
     }
 }

@@ -1,4 +1,4 @@
-package com.legion1900.textiletour
+package com.legion1900.textiletour.listeners
 
 import android.util.Log
 import io.textile.pb.Model
