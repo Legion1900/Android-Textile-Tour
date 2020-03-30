@@ -16,9 +16,16 @@ class ThreadViewModel : BaseViewModel() {
         textile.threads.add(config)
     }
 
+    fun addMessage(msg: String) {
+        val id = getThread()!!.id
+        textile.messages.add(id, msg)
+    }
+
+    fun getMessages(): View.TextList = textile.messages.list(null, 300, getThread()!!.id)
+
     private companion object {
         const val THREAD_NAME = "My Thread"
-        val KEY = "${ThreadViewModel::class.java.`package`.toString()}.$THREAD_NAME"
+        val KEY = "${ThreadViewModel::class.java.`package`.toString()}.BLOB"
         val SCHEMA: View.AddThreadConfig.Schema = View.AddThreadConfig.Schema.newBuilder()
             .setPreset(View.AddThreadConfig.Schema.Preset.BLOB)
             .build()

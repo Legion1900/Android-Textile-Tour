@@ -1,6 +1,7 @@
 package com.legion1900.textiletour.view.threads
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,11 @@ class ThreadActivity : AppCompatActivity() {
             viewModel.addThread()
             loadThreads()
         } else Toast.makeText(this, "Node if offline", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onAddMessageClick(v: View) {
+        viewModel.addMessage(message_view.text.toString())
+        Log.d("test", viewModel.getMessages().toString())
     }
 
     private fun loadThreads() {
