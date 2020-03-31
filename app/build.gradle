@@ -45,7 +45,7 @@ dependencies {
 
     // latest acceptable version: 1.1.5
     // version from github: 1.1.0
-    implementation 'io.textile:textile:1.1.5'
+    implementation 'io.textile:textile:0.1.7'
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$delegate_adapter_ver"

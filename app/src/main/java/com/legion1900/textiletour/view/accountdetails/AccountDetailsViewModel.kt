@@ -6,6 +6,7 @@ import io.textile.pb.Model
 import io.textile.pb.QueryOuterClass
 import io.textile.textile.Account
 import io.textile.textile.Textile
+import java.util.*
 
 class AccountDetailsViewModel : BaseViewModel() {
     /*
@@ -17,4 +18,8 @@ class AccountDetailsViewModel : BaseViewModel() {
     fun getPeerProfile(): Model.Peer = Textile.instance().profile.get()
 
     fun getAccount(): Account = Textile.instance().account
+
+    fun setName() {
+        textile.profile.setName("Tyler ${Calendar.getInstance().time}")
+    }
 }

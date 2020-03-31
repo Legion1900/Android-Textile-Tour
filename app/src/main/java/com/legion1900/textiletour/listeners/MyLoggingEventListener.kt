@@ -2,7 +2,7 @@ package com.legion1900.textiletour.listeners
 
 import android.util.Log
 import io.textile.pb.Model
-import io.textile.textile.FeedItemData
+import io.textile.pb.View
 import io.textile.textile.TextileEventListener
 
 class MyLoggingEventListener : TextileEventListener {
@@ -26,20 +26,12 @@ class MyLoggingEventListener : TextileEventListener {
         log("willStopNodeInBackgroundAfterDelay seconds: $seconds")
     }
 
-    override fun syncFailed(status: Model.CafeSyncGroupStatus?) {
-        log("syncFailed: $status")
-    }
-
     override fun queryDone(queryId: String?) {
         log("queryDone id: $queryId")
     }
 
     override fun threadAdded(threadId: String?) {
         log("threadAdded id: $threadId")
-    }
-
-    override fun syncUpdate(status: Model.CafeSyncGroupStatus?) {
-        log("syncUpdate status: $status")
     }
 
     override fun nodeFailedToStop(e: Exception?) {
@@ -51,7 +43,7 @@ class MyLoggingEventListener : TextileEventListener {
     }
 
     override fun nodeOnline() {
-        log("nodeOnline")
+        log("nodeOnline on thread: ${Thread.currentThread()}")
     }
 
     override fun notificationReceived(notification: Model.Notification?) {
@@ -74,17 +66,14 @@ class MyLoggingEventListener : TextileEventListener {
         log("canceledPendingNodeStop")
     }
 
-    override fun syncComplete(status: Model.CafeSyncGroupStatus?) {
-        log("syncComplete status: $status")
-    }
-
     override fun nodeStopped() {
         log("nodeStopped")
     }
 
-    override fun threadUpdateReceived(threadId: String?, feedItemData: FeedItemData?) {
-        log("threadUpdateReceived")
+    override fun threadUpdateReceived(feedItem: View.FeedItem?) {
+        TODO("Not yet implemented")
     }
+
 
     private fun log(msg: String, e: Exception? = null) {
         val newMsg = "listener name:${toString()} $msg"

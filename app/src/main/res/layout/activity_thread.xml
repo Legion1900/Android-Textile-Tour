@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="onAddThreadClick"
+            android:onClick="onAddMsgThreadClick"
             android:text="@string/add_thread_btn" />
 
         <EditText
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="onAddFileClick"
+            android:onClick="onAddJsonThreadClick"
             android:text="@string/add_file_btn" />
 
         <TextView

@@ -15,8 +15,8 @@ class SearchActivity : AppCompatActivity() {
 //    TODO: finish later
     private val viewModel by lazy { ViewModelProviders.of(this)[SearchViewModel::class.java] }
 
-    private val SEARCH_BY_NAME = getString(R.string.search_by_name)
-    private val SEARCH_BY_ADDRESS = getString(R.string.search_by_address)
+    private val SEARCH_BY_NAME by lazy { getString(R.string.search_by_name) }
+    private val SEARCH_BY_ADDRESS by lazy { getString(R.string.search_by_address) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

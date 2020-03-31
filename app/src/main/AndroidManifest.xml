@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.legion1900.textiletour">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".init.App"
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.threads.ThreadActivity"></activity>
+        <activity android:name=".view.threads.ThreadActivity" />
         <activity android:name=".view.search.SearchActivity" />
         <activity android:name=".view.accountdetails.AccountDetailsActivity" />
         <activity android:name=".view.main.MainActivity">
