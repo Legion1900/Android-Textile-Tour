@@ -32,6 +32,14 @@
             android:onClick="onAddMessageClick"
             android:text="@string/add_message_btn" />
 
+        <Button
+            android:id="@+id/add_file_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onAddFileClick"
+            android:text="@string/add_file_btn" />
+
         <TextView
             android:id="@+id/thread_view"
             style="@style/ProfileInfoTextView"

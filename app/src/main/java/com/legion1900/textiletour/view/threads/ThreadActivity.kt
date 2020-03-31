@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.legion1900.textiletour.R
 import kotlinx.android.synthetic.main.activity_thread.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.PrintStream
 
 class ThreadActivity : AppCompatActivity() {
 
@@ -17,6 +20,14 @@ class ThreadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread)
         loadThreads()
+    }
+
+    fun onAddFileClick(v: View) {
+        val file = File.createTempFile("test", "txt")
+        PrintStream(FileOutputStream(file)).use {
+            it.print("hello")
+        }
+        viewModel.addFile(file.toString())
     }
 
     fun onAddThreadClick(v: View) {
