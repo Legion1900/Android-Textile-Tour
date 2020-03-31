@@ -10,4 +10,5 @@
     <string name="add_thread_btn">Add thread</string>
     <string name="add_message_btn">Add message</string>
     <string name="add_file_btn">Add file</string>
+    <string name="add_json_thread_btn">Add JSON thread</string>
 </resources>

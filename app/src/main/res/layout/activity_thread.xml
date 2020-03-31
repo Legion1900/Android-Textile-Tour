@@ -18,6 +18,14 @@
             android:onClick="onAddMsgThreadClick"
             android:text="@string/add_thread_btn" />
 
+        <Button
+            android:id="@+id/add_json_thread_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onAddJsonThreadClick"
+            android:text="@string/add_json_thread_btn" />
+
         <EditText
             android:id="@+id/message_view"
             android:layout_width="match_parent"
@@ -37,8 +45,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="onAddJsonThreadClick"
+            android:onClick="onAddJsonFileClick"
             android:text="@string/add_file_btn" />
+
+        <Button
+            android:id="@+id/log_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onLogContentClick"
+            android:text="Log Files" />
 
         <TextView
             android:id="@+id/thread_view"

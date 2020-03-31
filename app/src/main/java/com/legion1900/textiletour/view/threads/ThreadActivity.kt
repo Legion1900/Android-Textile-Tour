@@ -5,12 +5,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.legion1900.textiletour.R
 import kotlinx.android.synthetic.main.activity_thread.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.PrintStream
+import kotlin.random.Random
 
 class ThreadActivity : AppCompatActivity() {
 
@@ -19,21 +18,23 @@ class ThreadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread)
-        loadThreads()
+        viewModel.getJsonFiles().observe(this, Observer {
+            Log.d("test", "Json files: $it")
+        })
+        viewModel.updateFiles()
     }
 
-    fun onAddFileClick(v: View) {
-        val file = File.createTempFile("test", "txt")
-        PrintStream(FileOutputStream(file)).use {
-            it.print("hello")
-        }
-        viewModel.addFile(file.toString())
+    fun onAddJsonThreadClick(v: View) {
+        if (viewModel.isNodeOnline.value == true) {
+            viewModel.addJsonThread()
+            displayThread(ThreadViewModel.NAME_JSON_THREAD)
+        } else Toast.makeText(this, "Node if offline", Toast.LENGTH_SHORT).show()
     }
 
-    fun onAddThreadClick(v: View) {
-        if (viewModel.isNodeOnline().value == true) {
-            viewModel.addThread()
-            loadThreads()
+    fun onAddMsgThreadClick(v: View) {
+        if (viewModel.isNodeOnline.value == true) {
+            viewModel.addMessageThread()
+            displayThread(ThreadViewModel.NAME_MSG_THREAD)
         } else Toast.makeText(this, "Node if offline", Toast.LENGTH_SHORT).show()
     }
 
@@ -42,7 +43,19 @@ class ThreadActivity : AppCompatActivity() {
         Log.d("test", viewModel.getMessages().toString())
     }
 
-    private fun loadThreads() {
-        thread_view.text = viewModel.getThread().toString()
+    fun onAddJsonFileClick(v: View) {
+        val lat = Random.nextFloat() * 10
+        val lng = Random.nextFloat() * 10
+        Log.d("test", "Generated lat: $lat, lng: $lng")
+        viewModel.addJson(lat, lng)
+    }
+
+    fun onLogContentClick(v: View) {
+        val content = viewModel.getFilesContent().toString()
+        Log.d("test", "Content of files: $content")
+    }
+
+    private fun displayThread(name: String) {
+        thread_view.text = viewModel.getThreadByName(name).toString()
     }
 }
