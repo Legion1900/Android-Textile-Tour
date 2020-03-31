@@ -15,23 +15,6 @@ class ThreadViewModel : BaseViewModel() {
 
     private val jsonFiles = MutableLiveData<List<View.Files>>()
 
-    init {
-        getFilesContent()
-//        Log.d("test", getThread()!!.blockCount.toString())
-//        Log.d("test", getThread()!!.headBlocksCount.toString())
-//        Log.d("test", getThread()!!.headBlocksList.toString())
-//        Log.d("test", textile.files.list(getThread()!!.id, "", 1000).allFields.toString())
-//        textile.files.list(getThread()!!.id, "", 1000).allFields.entries.forEach {
-//            //TODO: how to work with this???
-//            Log.d("test", it.value::class.simpleName.toString())
-//        }
-//        getThread()!!.headBlocksCount
-//        val files = textile.files.list(null, 100L, getThreadByName(NAME_JSON_THREAD)!!.id).itemsList
-        // Encrypted data
-//        val data = files[0].data
-//        Log.d("test", "data: $data")
-    }
-
     fun getJsonFiles(): LiveData<List<View.Files>> = jsonFiles
 
     fun getThreadByName(name: String): Model.Thread? {
@@ -105,7 +88,11 @@ class ThreadViewModel : BaseViewModel() {
 
     fun getFilesContent(): List<String> {
         val threadId = getThreadByName(NAME_JSON_THREAD)!!.id
-//        textile.files.list(null, Long.MAX_VALUE, threadId).getItems(0).caption
+        /*
+        * textile.files.list(null, Long.MAX_VALUE, threadId): FilesList
+        * textile.files.list(null, Long.MAX_VALUE, threadId).itemsList: List<Files>
+        * ...[i].file: File - exactly what we need!!
+        * */
         return textile.files.list(null, Long.MAX_VALUE, threadId).itemsList.map {
             textile.files.data(it.getFiles(0).file.hash).decode()
         }
